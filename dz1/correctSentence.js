@@ -19,10 +19,8 @@ correctSentence("Greetings, friends.") == "Greetings, friends."
 
 export default function correctSentence(text) {
   
-  // Приводит первую букву к заглавной
   text = text.charAt(0).toUpperCase() + text.slice(1);
   
-  // Добавляет точку в конце, если её нет
   if (!text.endsWith('.')) {
     text += '.';
   }

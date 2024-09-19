@@ -28,11 +28,9 @@ export default function nonUniqueElements(data) {
   
   const count = {};
   
-  // Количество вхождений каждого элемента в массиве
   data.forEach(item => {
     count[item] = (count[item] || 0) + 1;
   });
   
-  // Фильтрация для исключения элементов, встречающихся 1 раз
   return data.filter(item => count[item] > 1);
 }
