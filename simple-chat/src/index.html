@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+   <head lang="en">
+      <meta charset="UTF-8">
+      <title>Send a message</title>
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   </head>
+   <body>
+      <div class="chat-container">
+         <div class="top-bar">
+            <div class="left-icons">
+               <span class="material-icons">arrow_back_ios</span>
+            </div>
+            <div class="user-info">
+               <span class="material-icons">account_circle</span>
+               <div class="username-container">
+                  <div class="username">Дженнифер</div>
+                  <div class="status">была 2 часа назад</div>
+               </div>
+            </div>
+            <div class="right-icons">
+               <span class="material-icons">search</span>
+               <span class="material-icons">more_vert</span>
+            </div>
+         </div>
+         <div class="messages-container" id="messages-container">
+            <div class="messages" id="messages">
+            </div>
+         </div>
+         <div class="input-container">   
+            <textarea  id="message-input" placeholder="Сообщение..." rows="1"></textarea>
+            <span class="material-icons send-icon">add</span>
+         </div>
+      </div>
+      <button id="clear-storage" class="clear-btn">
+      <span class="material-icons">close</span>
+      </button>
+      <script>
+         document.addEventListener('DOMContentLoaded', function() {
+             const messageInput = document.getElementById('message-input');
+             const messagesContainer = document.getElementById('messages');
+             const senderName = 'User'; 
+         
+             loadMessages();
+         
+         
+             messageInput.addEventListener('keypress', function(event) {
+                 if (event.key === 'Enter' && !event.shiftKey && messageInput.value.trim() !== '') {
+                     event.preventDefault();
+                     addMessage(messageInput.value.trim(), 'you');
+                     messageInput.value = '';
+                 }
+             });
+         
+         
+             function addMessage(text, sender) {
+                 const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); 
+                 const message = {
+                     text: text,
+                     sender: sender,
+                     time: timestamp
+                 };
+         
+                 displayMessage(message);
+         
+                 saveMessageToLocalStorage(message);
+             }
+         
+             function displayMessage(message) {
+                 const messageElement = document.createElement('div');
+         
+                 const senderClass = message.sender === 'you' ? 'you' : 'send';
+         
+                 messageElement.classList.add('message', senderClass);
+         
+         
+                 messageElement.innerHTML = `
+                     <div class="message-content">
+                         <p>${message.text}</p>
+                         <div class="message-info">
+                             <span class="message-time">${message.time}</span>
+                             <span class="message-status">&#10004;&#10004;</span> <!-- Галочки -->
+                         </div>
+                     </div>
+                 `;
+         
+         
+                 messagesContainer.appendChild(messageElement);
+                 messagesContainer.scrollTop = messagesContainer.scrollHeight; 
+             }
+         
+         
+             function saveMessageToLocalStorage(message) {
+                 const messages = getMessagesFromLocalStorage();
+                 messages.push(message);
+                 localStorage.setItem('messages', JSON.stringify(messages));
+             }
+         
+         
+             function getMessagesFromLocalStorage() {
+                 const messages = localStorage.getItem('messages');
+                 return messages ? JSON.parse(messages) : [];
+             }
+         
+         
+             function loadMessages() {
+                 let messages = getMessagesFromLocalStorage();
+         
+         
+                 if (messages.length === 0) {
+                     const firstMessage = {
+                         text: 'Привет!',
+                         sender: 'Jennifer',
+                         time: '15:00'  
+                     };
+                     messages.push(firstMessage);
+                     localStorage.setItem('messages', JSON.stringify(messages));
+                 }
+         
+                 messages.forEach(function(message) {
+                     displayMessage(message);
+                 });
+             }
+         });
+         
+         
+         document.getElementById('clear-storage').addEventListener('click', function() {
+             localStorage.clear(); 
+             document.getElementById('messages').innerHTML = ''; 
+             alert('Все сообщения удалены');
+         });
+      </script>
+   </body>
+</html>
