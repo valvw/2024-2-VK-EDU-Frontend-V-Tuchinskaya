@@ -5,3 +5,7 @@ test('returns correct sentence', () => {
   expect(correctSentence("Greetings, friends")).toBe("Greetings, friends.")
   expect(correctSentence("Greetings, friends.")).toBe("Greetings, friends.")
 })
+
+test('returns empty string for empty input', () => {
+  expect(correctSentence("")).toBe("")
+})
