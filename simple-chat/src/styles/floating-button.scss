@@ -1,0 +1,61 @@
+
+.floating-button {
+    position: absolute;
+    bottom: 20px;   
+    right: 20px; 
+    background-color: $background-color_5;
+    color: $color_1;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  
+    .material-icons {
+        font-size: 26px;
+    }
+  
+    &:hover {
+        background-color: color.adjust($background-color_5, $lightness: 10%);
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+    }
+  
+    &:active {
+        background-color: color.adjust($background-color_5, $lightness: 5%);
+        box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+
+
+
+  .clear-btn {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	padding: 10px 15px;
+	background-color: $background-color_6;
+	color: $color_2;
+	border: none;
+	border-radius: 10px;
+	font-size: 16px;
+	cursor: pointer;
+	box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+	transition: background-color 0.3s ease, transform 0.3s ease;
+
+	&:hover {
+		background-color: $background-color_8;
+	}
+
+	&:active {
+		background-color: $background-color_9;
+	}
+
+	@media screen and (max-width: 510px) {
+		display: none;
+	}
+}

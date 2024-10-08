@@ -1,0 +1,101 @@
+@use "sass:color";
+@import 'variables';
+
+
+.chat-list {
+  flex: 1;
+  overflow-y: auto;
+  margin: 15px;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+.chat-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 0; 
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+  transition: background-color 0.3s ease;
+  align-items: flex-start;
+  
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .chat-img {
+    font-size: 50px;
+    color: $color_1;
+    margin-right: 15px;
+  }
+
+  .chat-info {
+    flex: 1;
+
+    .chat-name {
+      font-size: 16px;
+      font-weight: bold;
+      color: $color_2;
+    }
+
+    .chat-last-message {
+      font-size: 14px;
+      color: $color_4;
+      margin-top: 5px;
+
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+
+    }
+  }
+
+  .chat-status {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: 14px;
+    color: $color_5;
+  
+    .status-time {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+      justify-content: flex-end;
+    }
+  
+    .message-status {
+      margin-right: 8px;
+      font-size: 15px;
+      color: $background-color_6;
+    }
+  
+    .message-time {
+      font-size: 13px;
+      color: #999;
+    }
+  
+    .message-count {
+      background-color: $background-color_6;
+      border-radius: 50%;
+      padding: 5px 8px;
+      margin-top: 5px;
+      font-size: 12px;
+      color: white;
+      text-align: center;
+      align-self: flex-end;
+    }
+  }
+}
