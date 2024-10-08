@@ -6,7 +6,7 @@ export function updateHeader(isChatOpen, chat = null) {
     
     if (isChatOpen && chat) {
 
-        const displayedUsername = chat.username.length > 15 ? chat.username.slice(0, 15) + '...' : chat.username;
+        const displayedUsername = chat.username.length > 18 ? chat.username.slice(0, 18) + '' : chat.username;
 
         topBar.innerHTML = `
             <span class="material-icons back-button">arrow_back</span>

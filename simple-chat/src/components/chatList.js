@@ -15,7 +15,7 @@ export const chats = [
     },
     {
         id: 2,
-        username: "Jane Doe",
+        username: "Jane Doe Jane Doe Jane Doe Jane Doe",
         messageCount: 0,
         messages: [
             { text: "Привет, как дела?", sender: "you", time: "2024-09-30T12:00:00", status: "read" },
@@ -47,10 +47,12 @@ const createChatList = () => {
         const chatItem = document.createElement('div');
         chatItem.classList.add('chat-item');
 
+        const displayedUsername = username.length > 18 ? username.slice(0, 18) + '' : username;
+
         chatItem.innerHTML = `
             <span class="material-icons chat-img">account_circle</span>
             <div class="chat-info">
-                <div class="chat-name">${username}</div>
+                <div class="chat-name">${displayedUsername}</div>
                 <div class="chat-last-message">${text}</div>
             </div>
             <div class="chat-status">
