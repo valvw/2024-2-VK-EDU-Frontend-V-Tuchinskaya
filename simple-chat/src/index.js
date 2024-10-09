@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const userName = document.createElement('div');
         userName.classList.add('username');
         userName.title = username;
-        userName.textContent = username.length > 18 ? username.slice(0, 18) + '' : username;
+        userName.textContent = username.length > 15 ? username.slice(0, 15) + '' : username;
 
         return userName;
     }
