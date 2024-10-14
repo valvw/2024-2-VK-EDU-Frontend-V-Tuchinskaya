@@ -69,8 +69,19 @@ function addMessage(chatId, messageContent, isImage = false) {
 
     currentChat.messages.push(newMessage);
     saveChatsToLocalStorage();
-    loadChatMessages(chatId);
+    
+    const messageElement = createMessageElement(newMessage);
+    messageElement.classList.add('new-message');
+    const messagesContainer = document.getElementById('messages');
+    messagesContainer.prepend(messageElement);
+
+    setTimeout(() => {
+        messageElement.classList.remove('new-message');
+    }, 500); 
+    
+    scrollToBottom();
 }
+
 
 document.getElementById('message-input')?.addEventListener('keypress', function (event) {
     if (event.key === 'Enter' && !event.shiftKey && this.value.trim()) {
