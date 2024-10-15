@@ -15,7 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const userName = document.createElement('div');
         userName.classList.add('username');
         userName.textContent = username;
-
+        
+        userName.setAttribute('title', username);
         return userName;
     }
 
@@ -126,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 image: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAIAQMAAAD+wSzIAAAABlBMVEX///+/v7+jQ3Y5AAAADklEQVQI12P4AIX8EAgALgAD/aNpbtEAAAAASUVORK5CYII',
                 sender: 'Jennifer',
                 time: '15:01'
-            };
+            }; 
 
             messages.push(firstMessage, secondMessageWithImage);
             localStorage.setItem('messages', JSON.stringify(messages));
