@@ -2,11 +2,13 @@ import React from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import './Button.scss';
 
-const FloatingButton = () => {
+
+
+const FloatingButton = ({ onClick }) => {
     return (
-        <div className="floating-button">
+        <button className="floating-button" onClick={onClick}>
             <AddIcon />
-        </div>
+        </button>
     );
 };
 

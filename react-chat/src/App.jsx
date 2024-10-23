@@ -76,7 +76,7 @@ const App = () => {
             )}
             <ClearStorageButton onClear={handleClearStorage} />
         </div>
-    );
+    ); 
 };
 
 export default App;

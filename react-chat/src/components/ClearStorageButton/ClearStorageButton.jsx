@@ -1,6 +1,6 @@
 import React from 'react';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import './ClearStorageButton.scss';
+import './ClearStorageButton.scss'; 
 
 const ClearStorageButton = ({ onClear }) => {
     const handleClearStorage = () => {

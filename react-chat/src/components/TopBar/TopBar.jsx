@@ -6,6 +6,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import MenuIcon from '@mui/icons-material/Menu';
 
+
 const TopBar = ({ currentPage, currentChat, onBack, searchVisible, setSearchVisible, searchQuery, setSearchQuery }) => {
     const toggleSearch = () => {
         setSearchVisible(!searchVisible);

@@ -13,6 +13,7 @@ const PageChatList = ({ openChat, searchQuery }) => {
     const [chats, setChats] = useState([]);
     const [isCreatingChat, setIsCreatingChat] = useState(false);
 
+    
     useEffect(() => {
         const savedChats = getFromLocalStorage('chats'); 
 

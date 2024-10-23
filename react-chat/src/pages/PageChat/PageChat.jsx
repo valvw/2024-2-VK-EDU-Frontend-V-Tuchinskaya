@@ -14,7 +14,7 @@ const PageChat = ({ currentChatId, chats, setChats }) => {
 
     useEffect(() => {
         const savedChats = getFromLocalStorage('chats');
-        if (savedChats) {
+        if (savedChats) { 
             setChats(savedChats);
         }
     }, [setChats]);

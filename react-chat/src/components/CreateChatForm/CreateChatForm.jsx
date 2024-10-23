@@ -18,7 +18,7 @@ const CreateChatForm = ({ onCreateChat, onClose }) => {
         if (e.target === e.currentTarget) {
             onClose();
         }
-    };
+    }; 
 
     return (
         <div className="create-chat-overlay" onClick={handleOverlayClick}> {}

@@ -39,4 +39,4 @@ export const addMessage = (chats, setChats, chatId, content, scrollToBottom, isI
         setChats(updatedChatsWithNoNew);
         saveToLocalStorage('chats', updatedChatsWithNoNew);
     }, 500);
-};
+}; 
