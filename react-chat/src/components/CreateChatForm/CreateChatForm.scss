@@ -1,0 +1,50 @@
+@use "sass:color";
+@use '../../variables' as *;
+
+
+.create-chat-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.create-chat-form {
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    width: 350px;
+    backdrop-filter: blur(15px);
+    border: 2px solid #1e1e1e4a;
+    background: transparent;
+}
+
+.create-chat-form input {
+    width: 94%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #444;
+    border-radius: 5px; 
+    background: #2c2c2c;
+    color: #ddd;
+}
+
+.create-chat-form button {
+    background-color: $color_5; 
+    color: white;
+    border: none;
+    padding: 10px; 
+    border-radius: 5px;
+    cursor: pointer; 
+    width: 100%; 
+
+    &:hover {
+        background-color: #0056b3;
+    }
+}

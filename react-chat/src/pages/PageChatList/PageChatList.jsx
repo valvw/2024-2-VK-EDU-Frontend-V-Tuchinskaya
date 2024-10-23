@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import DoneIcon from '@mui/icons-material/Done';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import FloatingButton from '../../components/Button/Button';
-import { getFromLocalStorage } from '../../utils/localStorageUtils'; 
+import { getFromLocalStorage, saveToLocalStorage } from '../../utils/localStorageUtils'; 
 import './PageChatList.scss';
+import CreateChatForm from '../../components/CreateChatForm/CreateChatForm';
 
 
 
-const PageChatList = ({ openChat }) => {
+const PageChatList = ({ openChat, searchQuery }) => {
     const [chats, setChats] = useState([]);
+    const [isCreatingChat, setIsCreatingChat] = useState(false);
 
     useEffect(() => {
         const savedChats = getFromLocalStorage('chats'); 
@@ -19,46 +21,87 @@ const PageChatList = ({ openChat }) => {
         }
     }, []);
 
+
+    const handleFloatingButtonClick = () => {
+        setIsCreatingChat(true);
+    };
+
+
+    const handleCreateChat = (chatName) => {
+        const newChat = {
+            id: Date.now(),
+            username: chatName,
+            messageCount: 0,
+            messages: [] 
+        };
+    
+        setChats((prevChats) => {
+            const updatedChats = [...prevChats, newChat];
+            saveToLocalStorage('chats', updatedChats); 
+            return updatedChats;
+        });
+    
+        setIsCreatingChat(false);
+        openChat(newChat.id);
+    };
+
+
+    const sortedChats = chats.slice().sort((a, b) => {
+        const lastMessageA = a.messages[a.messages.length - 1];
+        const lastMessageB = b.messages[b.messages.length - 1];
+
+        const timeA = lastMessageA ? new Date(lastMessageA.time).getTime() : 0;
+        const timeB = lastMessageB ? new Date(lastMessageB.time).getTime() : 0;
+
+        return timeB - timeA;
+    });
+
+
+    const filteredChats = sortedChats.filter(chat => 
+        chat.username.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+
     return (
         <>
-        <div id="chat-list" className="chat-list" style={{ display: 'block' }}>
-            {chats.map(chat => {
-                const lastMessage = chat.messages[chat.messages.length - 1];
-                const unreadCount = chat.messages.filter(msg => msg.status === 'unread' && msg.sender !== 'you').length;
-                const lastMessageFromSender = chat.messages.slice().reverse().find(msg => msg.sender !== 'you');
+            <div id="chat-list" className="chat-list" style={{ display: 'block' }}>
+                {filteredChats.map(chat => {
+                    const lastMessage = chat.messages[chat.messages.length - 1];
+                    const unreadCount = chat.messages.filter(msg => msg.status === 'unread' && msg.sender !== 'you').length;
 
-                return (
-                    <div key={chat.id} className="chat-item" onClick={() => openChat(chat.id)}>
-                        <AccountCircleIcon />
-                        <div className="chat-info">
-                            <div className="chat-name">{chat.username}</div>
-                            <div className="chat-last-message">
-                                {lastMessage ? lastMessage.text : 'Нет сообщений'}
+                    return (
+                        <div key={chat.id} className="chat-item" onClick={() => openChat(chat.id)}>
+                            <AccountCircleIcon />
+                            <div className="chat-info">
+                                <div className="chat-name">{chat.username}</div>
+                                <div className="chat-last-message">
+                                    {lastMessage ? lastMessage.text : 'Нет сообщений'}
+                                </div>
                             </div>
-                        </div>
-                        <div className="chat-status">
-                            <div className="status-time">
-                            {lastMessageFromSender && (
-                            <>
-                                {lastMessageFromSender.status === 'read' ? <DoneAllIcon /> : <DoneIcon />}
-                                <span className="message-time">
-                                    {new Date(lastMessageFromSender.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                                </span>
-                            </>
+                            <div className="chat-status">
+                                <div className="status-time">
+                                    {lastMessage && (
+                                        <>
+                                            {lastMessage.status === 'read' ? <DoneAllIcon /> : <DoneIcon />}
+                                            <span className="message-time">
+                                                {new Date(lastMessage.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                            </span>
+                                        </>
+                                    )}
+                                </div>
+                                {unreadCount > 0 && (
+                                    <div className="message-count">
+                                        {unreadCount}
+                                    </div>
                                 )}
                             </div>
-                            {unreadCount > 0 && (
-                                <div className="message-count">
-                                    {unreadCount}
-                                </div>
-                            )}
                         </div>
-                    </div>
-                );
-            })}
-        </div>
+                    );
+                })}
+            </div>
         
-        <FloatingButton />
+            {isCreatingChat && <CreateChatForm onCreateChat={handleCreateChat} onClose={() => setIsCreatingChat(false)} />} {}
+            <FloatingButton onClick={handleFloatingButtonClick} /> 
         </>
     );
 };

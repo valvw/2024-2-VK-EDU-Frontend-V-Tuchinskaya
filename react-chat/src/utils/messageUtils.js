@@ -5,9 +5,9 @@ export const addMessage = (chats, setChats, chatId, content, scrollToBottom, isI
     const newMessage = {
         id: Date.now(),
         [isImage ? 'image' : 'text']: content,
-        sender: 'you',
+        sender: 'you', 
         time: new Date().toISOString(),
-        status: 'unread',
+        status: 'unread', 
         isNew: true
     };
 

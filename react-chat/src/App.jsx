@@ -9,10 +9,11 @@ import { addMessage } from './utils/messageUtils';
 import chatsData from '../public/data/chatsData.json'; 
 
 
-
 const App = () => {
     const [currentChatId, setCurrentChatId] = useState(null);
     const [chats, setChats] = useState([]);
+    const [searchVisible, setSearchVisible] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
 
     const loadChats = () => {
         const savedChats = getFromLocalStorage('chats');
@@ -42,7 +43,7 @@ const App = () => {
 
     const handleClearStorage = () => {
         setChats([]);
-        saveToLocalStorage('chats', []);
+        saveToLocalStorage('chats', []); 
         loadChats(); 
     };
 
@@ -54,14 +55,22 @@ const App = () => {
                 currentPage={currentChatId === null ? 'chatList' : 'chat'}
                 currentChat={currentChat}
                 onBack={backToChatList}
+                searchVisible={searchVisible}
+                setSearchVisible={setSearchVisible}
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
             />
             {currentChatId === null ? (
-                <PageChatList chats={chats} openChat={openChat} />
+                <PageChatList 
+                    chats={chats} 
+                    openChat={openChat} 
+                    searchQuery={searchQuery} 
+                />
             ) : (
                 <PageChat
-                currentChatId={1}
+                    currentChatId={currentChatId}
                     chats={chats}
-                    onBack={backToChatList}
+                    setChats={setChats}
                     onSendMessage={handleSendMessage}
                 />
             )}
