@@ -1,6 +1,5 @@
 import { loadChatMessages } from './chatItem';
-import { updateHeader} from './topBar';
-
+import { updateHeader } from './topBar';
 
 export const chats = [
     {
@@ -9,8 +8,7 @@ export const chats = [
         messageCount: 1,
         messages: [
             { text: "Привет, как дела?", sender: "you", time: "2024-10-02T11:45:00", status: "read" },
-            { text: "Привет, хорошо!", sender: "John", time: "2024-10-01T11:57:00", status: "unread" }            
-            
+            { text: "Привет, хорошо!", sender: "John", time: "2024-10-01T11:57:00", status: "unread" }
         ]
     },
     {
@@ -24,6 +22,17 @@ export const chats = [
     }
 ];
 
+export function initializeChats() {
+    const storedChats = localStorage.getItem('chats');
+    if (!storedChats) {
+        localStorage.setItem('chats', JSON.stringify(chats));
+    }
+}
+
+initializeChats();
+
+
+
 const sortChatsByTime = () => {
     chats.sort((a, b) => {
         const messageA = a.messages[a.messages.length - 1].time;
@@ -32,22 +41,30 @@ const sortChatsByTime = () => {
     });
 };
 
-
 const createChatList = () => {
     const chatContainer = document.getElementById('chat-list');
     chatContainer.innerHTML = '';
 
     sortChatsByTime();
 
+
+    const storedChats = JSON.parse(localStorage.getItem('chats')) || [];
+
+    if (storedChats.length === 0) {
+        chatContainer.innerHTML = '';
+        return;
+    }
+
+
     chats.forEach(({ id, username, messageCount, messages }) => {
-        const { text, time, status } = messages[messages.length - 1];
+        const { text = 'Image', time, status } = messages[messages.length - 1] || {};
 
         const formattedTime = new Date(time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
         const chatItem = document.createElement('div');
         chatItem.classList.add('chat-item');
 
-        const displayedUsername = username.length > 18 ? username.slice(0, 18) + '' : username;
+        const displayedUsername = username.split(' ').slice(0, 2).join(' ');
 
         chatItem.innerHTML = `
             <span class="material-icons chat-img">account_circle</span>
@@ -75,14 +92,12 @@ const switchToChatScreen = (chatId) => {
 
     updateHeader(true, chat);
 
-    document.getElementById("chat-list").style.display = "none";
-    document.querySelector(".floating-button").style.display = "none";
-
-    document.getElementById("messages-container").style.display = "flex";
-    document.querySelector(".input-container").style.display = "flex";
+    switchVisibility('chat-list', false);
+    switchVisibility('floating-button', false);
+    switchVisibility('messages-container', true, 'flex');
+    switchVisibility('input-container', true, 'flex');
 
     localStorage.setItem('currentChatId', chatId);
-
     loadChatMessages(chatId);
 };
 
@@ -90,13 +105,18 @@ export const backToChatListScreen = () => {
     updateHeader(false);
     createChatList();
 
-    document.getElementById("chat-list").style.display = "block";
-    document.querySelector(".floating-button").style.display = "flex";
-
-    document.getElementById("messages-container").style.display = "none";
-    document.querySelector(".input-container").style.display = "none";
+    switchVisibility('chat-list', true, 'block');
+    switchVisibility('floating-button', true, 'flex');
+    switchVisibility('messages-container', false);
+    switchVisibility('input-container', false);
 };
 
+const switchVisibility = (elementId, isVisible, displayType = 'none') => {
+    const element = document.getElementById(elementId) || document.querySelector(`.${elementId}`);
+    if (element) {
+        element.style.display = isVisible ? displayType : 'none';
+    }
+};
 
 document.addEventListener('DOMContentLoaded', () => {
     createChatList();  
