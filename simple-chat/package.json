@@ -1,5 +1,5 @@
 {
-  "name": "simple-chat",
+  "name": "simple-chat-2",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,7 +8,6 @@
     "build": "webpack --mode production",
     "dev": "webpack --mode development"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
@@ -20,7 +19,7 @@
     "find-cache-dir": "^5.0.0",
     "html-webpack-plugin": "^5.3.1",
     "mini-css-extract-plugin": "^2.9.1",
-    "sass": "^1.79.3",
+    "sass": "^1.79.4",
     "sass-loader": "^16.0.2",
     "style-loader": "^4.0.0",
     "webpack": "^5.91.0",
