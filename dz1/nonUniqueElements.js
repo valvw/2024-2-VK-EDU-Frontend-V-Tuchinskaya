@@ -26,11 +26,9 @@ nonUniqueElements([10, 9, 10, 10, 9, 8]) == [10, 9, 10, 10, 9]
 
 export default function nonUniqueElements(data) {
   
-  const count = {};
+  const countMap = new Map();
   
-  data.forEach(item => {
-    count[item] = (count[item] || 0) + 1;
-  });
-  
-  return data.filter(item => count[item] > 1);
+  data.forEach(item => countMap.set(item, countMap.has(item)));
+
+  return data.filter(item => countMap.get(item));
 }

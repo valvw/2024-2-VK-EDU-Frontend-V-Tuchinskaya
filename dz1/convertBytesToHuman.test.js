@@ -11,14 +11,16 @@ import convertBytesToHuman from './convertBytesToHuman';
 
 
 test('Возвращает false для неправильного типа данных', () => {
-  expect(convertBytesToHuman(-1)).toBe(false); // Отрицательное число
-  expect(convertBytesToHuman('string')).toBe(false); // Строка
-  expect(convertBytesToHuman(undefined)).toBe(false); // Undefined
-  expect(convertBytesToHuman(NaN)).toBe(false); // NaN
-  expect(convertBytesToHuman(null)).toBe(false); // Null
-  expect(convertBytesToHuman(true)).toBe(false); // Булево значение
-  expect(convertBytesToHuman([])).toBe(false); // Пустой массив
-  expect(convertBytesToHuman({})).toBe(false); // Объект
+  expect(convertBytesToHuman(-1)).toBeFalsy(); // Отрицательное число
+  expect(convertBytesToHuman('string')).toBeFalsy(); // Строка
+  expect(convertBytesToHuman(undefined)).toBeFalsy(); // Undefined
+  expect(convertBytesToHuman(NaN)).toBeFalsy(); // NaN
+  expect(convertBytesToHuman(null)).toBeFalsy(); // Null
+  expect(convertBytesToHuman(true)).toBeFalsy(); // Булево значение
+  expect(convertBytesToHuman([])).toBeFalsy(); // Пустой массив
+  expect(convertBytesToHuman({})).toBeFalsy(); // Объект
+  expect(convertBytesToHuman(Infinity)).toBeFalsy();
+  expect(convertBytesToHuman('1234')).toBeFalsy(); 
 });
 
 test('Возвращает корректное значение для случайных чисел', () => {
