@@ -1,8 +1,11 @@
+@use "sass:color";
+@import 'variables';
+
 
 .floating-button {
     position: absolute;
-    bottom: 20px;   
-    right: 20px; 
+    bottom: 20px;
+    right: 20px;
     background-color: $background-color_5;
     color: $color_1;
     border-radius: 50%;
@@ -11,24 +14,42 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  
+    box-shadow: 0 0 0 #555;
+    animation: pulse 2s infinite;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+
+
     .material-icons {
         font-size: 26px;
+        background: #ddd;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
-  
+
     &:hover {
+        animation: none;
         background-color: color.adjust($background-color_5, $lightness: 10%);
         box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
     }
-  
+
     &:active {
         background-color: color.adjust($background-color_5, $lightness: 5%);
         box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
     }
-  }
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(#555, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba($background-color_6, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba($background-color_6, 0);
+    }
+}
 
 
 
