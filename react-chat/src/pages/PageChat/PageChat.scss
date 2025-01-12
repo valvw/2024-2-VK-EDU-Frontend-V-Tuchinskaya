@@ -1,0 +1,86 @@
+@use "sass:color";
+@use '../../variables' as *;
+
+
+.chat-container {
+	width: 100%;
+	max-width: 400px;
+	background-color: $background-color_2;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	border-radius: 10px;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	height: 99vh;
+	position: relative;
+	
+	@media screen and (max-width: 480px) {
+		max-width: 100%; 
+	}
+}
+
+.messages-container {
+	flex: 1;
+	overflow-y: auto; 
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	margin: 0 20px;
+}
+
+.messages {
+	overflow-y: auto;
+	scroll-behavior: smooth;
+	padding: 10px 0;
+	flex-direction: column-reverse;
+	display: flex;
+	gap: 10px;
+
+    &::-webkit-scrollbar {
+		display: none;
+    }
+}
+
+.input-container {
+	display: flex;
+	align-items: center;
+	padding: 15px;
+	background-color: $background-color_3;
+	border-top: 1px solid #555;
+	position: relative;
+	gap: 5px;  
+
+	textarea {
+		flex: 1;
+		padding: 8px;
+		width: 100%;
+		border: 1px solid #555;
+		border-radius: 20px;
+		background-color: $background-color_5;
+		color: $color_1;
+		font-size: 14px;
+		line-height: 1.5;
+		resize: none;
+		overflow: hidden;
+		box-sizing: border-box;
+		transition: border-color 0.3s ease;
+
+		&:focus {
+			border-color: $border-color_1;
+			outline: none;
+		}
+	}
+
+	.MuiSvgIcon-root {
+		color: $color_1;
+		cursor: pointer;
+		font-size: 24px;
+		border-radius: 50%;
+		background-color: #555;
+		transition: filter 0.3s ease;
+
+		&:hover {
+			filter: brightness(1.3);
+		}
+	}
+} 
